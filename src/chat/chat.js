@@ -97,8 +97,8 @@ const mapDispatchToProps = (dispatch) =>{
 
 const mapStateToProps = (state) => {
   return {
-    user : state.user,
-    currentRoom : state.currentRoom
+    user : state.user.user,
+    currentRoom : state.process.currentRoom
   }
 }
 

@@ -1,7 +1,9 @@
-const initialState = {
-  user: null,
-  messages: {
 
+const initialState = {
+  messages: {
+    text: 'init',
+    encrypt: false,
+    cypher: 'init'
   },
   currentRoom: "Lobby",
   roomList: null
@@ -14,9 +16,7 @@ export const ProcessReducer = (state = initialState, action) => {
       return {...state, 
         messages: action.payload };
 
-    case "USER":
-      return {...state,
-        user: action.user};
+    
     
     case "CURRENT_ROOM":
       return{
@@ -29,5 +29,8 @@ export const ProcessReducer = (state = initialState, action) => {
       return state;
 
   }
+
+  
+
 };
 

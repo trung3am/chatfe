@@ -1,9 +1,11 @@
-import { ProcessReducer } from "./process";
+
 import {  createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-const store = createStore(
-  ProcessReducer,
+import { persistStore } from "redux-persist";
+import { persistedReducer } from "./combined";
+export const store = createStore(
+  persistedReducer,
   composeWithDevTools()
 )
 
-export default store;
+export const persistor = persistStore(store);

@@ -21,7 +21,7 @@ const  Process = (props)=> {
 
 const mapStateToProps= (state) =>{
   return {
-    messages: state.messages
+    messages: state.process.messages
   }
 }
 export default connect(mapStateToProps)(Process);
