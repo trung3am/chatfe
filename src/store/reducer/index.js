@@ -1,7 +1,7 @@
 import { ProcessReducer } from "./process";
-import { combineReducers } from "redux";
-const rootReducers = combineReducers({
-  ProcessReducer: ProcessReducer,
-});
+import {  createStore } from "redux";
+const store = createStore(
+  ProcessReducer
+)
 
-export default rootReducers;
+export default store;

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import "./process.scss";
 function Process() {
 
-  const state = useSelector((state) => state.ProcessReducer.messages);
+  const state = useSelector((state) => state.messages);
   console.log(state)
   return (
     <div className="process">
