@@ -10,14 +10,24 @@ const initialState = {
 export const ProcessReducer = (state = initialState, action) => {
   switch (action.type) {
     case "PROCESS":
-      console.log(action.payload)
-      return { messages: action.payload };
+      
+      return {...state, 
+        messages: action.payload };
 
     case "USER":
-      return {user: action.payload};
+      return {...state,
+        user: action.user};
+    
+    case "CURRENT_ROOM":
+      return{
+        ...state,
+        currentRoom: action.roomname
+      }
+
 
     default:
       return state;
+
   }
 };
 

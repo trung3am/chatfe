@@ -12,8 +12,13 @@ export const process = (encrypt, text, cypher) => {
 export const updateUser = (user) => { 
   return{
     type: "USER",
-    payload: {
-      user
-    }
+    user
+  }
+}
+
+export const updateCurrentRoom = (roomname) => {
+  return {
+    type: "CURRENT_ROOM",
+    roomname
   }
 }

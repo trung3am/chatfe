@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import "./process.scss";
-function Process() {
+const  Process = (props)=> {
 
-  const state = useSelector((state) => state.messages);
-  console.log(state)
   return (
     <div className="process">
       <h5>
@@ -11,13 +9,19 @@ function Process() {
       </h5>
       <div className="incoming">
         <h4>Incoming Data</h4>
-        <p>{state.cypher}</p>
+        <p>{props.messages.cypher}</p>
       </div>
       <div className="crypt">
         <h4>Decypted Data</h4>
-        <p>{state.text}</p>
+        <p>{props.messages.text}</p>
       </div>
     </div>
   );
 }
-export default Process;
+
+const mapStateToProps= (state) =>{
+  return {
+    messages: state.messages
+  }
+}
+export default connect(mapStateToProps)(Process);

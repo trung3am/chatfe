@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import "./home.scss";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import { updateCurrentRoom, updateUser } from "../store/action";
 
-function Homepage({ socket }) {
+const Homepage = (props)=> {
   const [username, setusername] = useState("");
   const roomname = "Lobby"
-  const dispatch = useDispatch();
+  const socket = props.socket
+  
   
   const sendData = () => {
     if (username !== "" ) {
       socket.emit("joinRoom", { username, roomname });
-      
+      props.updateCurrentRoom(roomname)      
+      props.updateUser(username)    
     } else {
       alert("username are must !");
       window.location.reload();
@@ -27,11 +30,18 @@ function Homepage({ socket }) {
         onChange={(e) => setusername(e.target.value)}
       ></input>
       
-      <Link to={`/chat/${username}`}>
+      <Link to='/chat'>
         <button onClick={sendData}>Join</button>
       </Link>
     </div>
   );
 }
 
-export default Homepage;
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    updateUser : (user) => dispatch(updateUser(user)),
+    updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname))
+  }
+}
+
+export default connect(null,mapDispatchToProps)(Homepage);

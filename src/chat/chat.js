@@ -2,25 +2,21 @@ import "./chat.scss";
 import { to_Decrypt, to_Encrypt } from "../aes.js";
 import { process } from "../store/action/index";
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 
-function Chat({  socket }) {
+const Chat = (props)=> {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
-  const username = "abc"
-  const roomname = "Lobby"
-  const dispatch = useDispatch();
-
-  const dispatchProcess = (encrypt, text, cypher) => {
-    dispatch(process(encrypt, text, cypher));
-  };
-
+  const username = props.user
+  const roomname = props.currentRoom
+  const socket = props.socket
+  
   useEffect(() => {
     socket.on("message", (data) => {
       //decypt
       const ans = to_Decrypt(data.text, data.username);
-      dispatchProcess(false, ans, data.text);
+      props.process(false, ans, data.text);
       console.log(ans);
       let temp = messages;
       temp.push({
@@ -92,4 +88,18 @@ function Chat({  socket }) {
     </div>
   );
 }
-export default Chat;
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    process : (encrypt, text, cypher) => dispatch(process(encrypt,text, cypher))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    user : state.user,
+    currentRoom : state.currentRoom
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Chat);

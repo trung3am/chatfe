@@ -29,7 +29,7 @@ function App() {
           <Route path="/" exact>
             <Home socket={socket} />
           </Route>
-          <Route path="/chat/:username" component={Appmain} />
+          <Route path="/chat" component={Appmain} />
         </Switch>
       </div>
     </Router>
