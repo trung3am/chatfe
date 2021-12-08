@@ -1,10 +1,11 @@
 import Chat from "./chat/chat";
 import Process from "./process/process";
 import Home from "./home/home";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
 import React from "react";
 import io from "socket.io-client";
+import { connect } from "react-redux";
 
 const socket = io.connect('/');
 
@@ -22,19 +23,29 @@ function Appmain(props) {
     </React.Fragment>
   );
 }
-function App() {
+const  App = (props ) => {
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact>
-            <Home socket={socket} />
-          </Route>
-          <Route path="/chat" component={Appmain} />
+          <Route path="/" exact render = {
+            () => props.user !== null ? (<Redirect to='/chat'/>) : (<Home socket={socket} />)
+          }/>
+            
+          <Route path={"/chat"} exact render = {
+            () => props.user === null ? (<Redirect to="/"/>) : (<Appmain/> )  
+          } />
         </Switch>
       </div>
     </Router>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return{
+    user : state.user.user
+  }
+}
+
+
+export default connect(mapStateToProps)(App);

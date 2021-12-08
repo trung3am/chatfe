@@ -30,9 +30,7 @@ const Homepage = (props)=> {
         onChange={(e) => setusername(e.target.value)}
       ></input>
       
-      <Link to='/chat'>
-        <button onClick={sendData}>Join</button>
-      </Link>
+      <button onClick={sendData}>Join</button>
     </div>
   );
 }
