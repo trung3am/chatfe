@@ -22,3 +22,10 @@ export const updateCurrentRoom = (roomname) => {
     roomname
   }
 }
+
+export const updateRoomUser = (users) => {
+  return {
+    type: "UPDATE_ROOM_USER",
+    users
+  }
+}

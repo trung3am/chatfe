@@ -5,6 +5,7 @@ const initialState = {
     encrypt: false,
     cypher: 'init'
   },
+  roomUsers:[],
   currentRoom: "Lobby",
   roomList: null
 }
@@ -24,6 +25,11 @@ export const ProcessReducer = (state = initialState, action) => {
         currentRoom: action.roomname
       }
 
+    case "UPDATE_ROOM_USER":
+      return{
+        ...state,
+        roomUsers: action.users
+      }
 
     default:
       return state;

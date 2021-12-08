@@ -1,6 +1,6 @@
 import "./chat.scss";
 import { to_Decrypt, to_Encrypt } from "../aes.js";
-import { process } from "../store/action/index";
+import { process, updateRoomUser } from "../store/action/index";
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
@@ -11,7 +11,12 @@ const Chat = (props)=> {
   const username = props.user
   const roomname = props.currentRoom
   const socket = props.socket
-  
+  useEffect(()=> {
+    socket.on("roomusers", (data)=>{
+      props.updateRoomUser(data)
+    })
+  })
+
   useEffect(() => {
     socket.on("message", (data) => {
       //decypt
@@ -91,7 +96,8 @@ const Chat = (props)=> {
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    process : (encrypt, text, cypher) => dispatch(process(encrypt,text, cypher))
+    process : (encrypt, text, cypher) => dispatch(process(encrypt,text, cypher)),
+    updateRoomUser : (roomUsers) => dispatch(updateRoomUser(roomUsers))
   }
 }
 
