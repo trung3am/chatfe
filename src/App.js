@@ -7,6 +7,7 @@ import React from "react";
 import io from "socket.io-client";
 import { connect } from "react-redux";
 import Login from "./login/login";
+import SignUp from "./signup/signup";
 
 const socket = io.connect('/');
 
@@ -34,6 +35,9 @@ const  App = (props ) => {
           }/>
           <Route path="/login"  render = {
             () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<Login socket={socket} />)
+          }/>
+          <Route path="/signup"  render = {
+            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<SignUp socket={socket} />)
           }/>
             
           <Route path={"/chat"} exact render = {

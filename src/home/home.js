@@ -32,7 +32,8 @@ const Homepage = (props)=> {
       ></input>
             
       <button onClick={sendData}>Join</button>
-      <Link to='/login'>Try login and sign up</Link>
+      <Link to='/login'>already have a user? Login</Link>
+      <Link to='/signup'>Try sign up</Link>
     </div>
   );
 }

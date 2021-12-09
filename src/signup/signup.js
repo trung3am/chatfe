@@ -3,27 +3,28 @@ import "./home.scss";
 
 import { connect } from "react-redux";
 import { updateCurrentRoom, updateToken, updateUser } from "../store/action";
-import LoginApi from "../api/loginApi";
+import SignUpApi from "../api/signupApi";
 import { Link } from "react-router-dom";
 
-const LoginPage = (props)=> {
+
+const SignUpPage = (props)=> {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [username, setusername] = useState("");
   const roomname = "Lobby"
   const socket = props.socket
   
   
   const sendData = async () => {
-    if (email !== "" && password !== "" ) {
-      const res = await LoginApi(email, password);
+    if (email !== "" && password !== "" && username !== "" ) {
+      const res = await SignUpApi(username, email, password);
 
-      if (!res || res.status!== 200) {
-          alert("invalid login")
+      if (!res || res.status!== 201) {
+          alert("invalid signup")
           
           return
       }
 
-      const username = res.data.user.name
 
       socket.emit("joinRoom", { username, roomname });
       props.updateCurrentRoom(roomname)      
@@ -38,12 +39,18 @@ const LoginPage = (props)=> {
   return (
     <div className="homepage">
       <h1>Welcome to ChatApp</h1>
-      <input type="email" 
+      <input 
+        placeholder="Input your user name"
+        value={username}
+        onChange={(e) => setusername(e.target.value)}
+      ></input>
+      <input 
+       type="email"
         placeholder="email"
         value={email}
         onChange={(e) => setemail(e.target.value)}
       ></input>
-      <input
+      <input 
       type='password'
         placeholder="password"
         value={password}
@@ -52,7 +59,7 @@ const LoginPage = (props)=> {
       
       <button onClick={sendData}>Join</button>
       <Link to="/">Join without user</Link>
-      <Link to='/signup'>Try sign up</Link>
+      <Link to='/login'>already have a user? Login</Link>
     </div>
   );
 }
@@ -65,4 +72,4 @@ const mapDispatchToProps = (dispatch) =>{
   }
 }
 
-export default connect(null,mapDispatchToProps)(LoginPage);
+export default connect(null,mapDispatchToProps)(SignUpPage);
