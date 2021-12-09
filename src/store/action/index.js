@@ -36,3 +36,9 @@ export const updateToken =  (token) => {
     token
   }
 }
+
+export const logOut = () => {
+  return{
+    type: "LOGOUT"
+  }
+}

@@ -15,6 +15,16 @@ export const userReducer = (state = initialState ,action) => {
             ...state,
             token: action.token
         }
+        case "LOGOUT":
+            return{
+                user: {
+                    name: null,
+                    pictures: []
+                },
+                token: null
+
+            }
+
         default:
             
             return state;

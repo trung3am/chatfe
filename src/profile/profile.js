@@ -1,13 +1,19 @@
 import "./home.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateCurrentRoom, updateUser } from "../store/action";
+import { logOut, updateCurrentRoom, updateUser } from "../store/action";
+import LogOutApi from "../api/logoutApi";
 
 const ProfilePage = (props)=> {
   const username = props.user.name
   const roomname = "Lobby"
   const socket = props.socket
   
+  const handleLogout = async () => {
+      await LogOutApi()
+      props.logOut()
+      return
+  }
   
   const sendData = () => {
     if (username !== "" ) {
@@ -43,6 +49,7 @@ const ProfilePage = (props)=> {
         </div>
         {props.user.pictures.length >= 10 ? (<p>max picture uploaded</p>) : (<Link to='/uploadphoto'><button>Upload photo</button></Link>)}
         <button>delete all photo</button>
+        <button onClick={handleLogout}>Log out</button>
     </div>
   );
 }
@@ -50,7 +57,8 @@ const ProfilePage = (props)=> {
 const mapDispatchToProps = (dispatch) =>{
   return{
     updateUser : (user) => dispatch(updateUser(user)),
-    updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname))
+    updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname)),
+    logOut : () => dispatch(logOut())
   }
 }
 
