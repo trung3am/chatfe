@@ -38,11 +38,13 @@ const LoginPage = (props)=> {
   return (
     <div className="homepage">
       <h1>Welcome to ChatApp</h1>
+      <p>email:</p>
       <input type="email" 
         placeholder="email"
         value={email}
         onChange={(e) => setemail(e.target.value)}
       ></input>
+      <p>password:</p>
       <input
       type='password'
         placeholder="password"

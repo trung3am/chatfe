@@ -39,17 +39,20 @@ const SignUpPage = (props)=> {
   return (
     <div className="homepage">
       <h1>Welcome to ChatApp</h1>
+      <p>username: </p>
       <input 
         placeholder="Input your user name"
         value={username}
         onChange={(e) => setusername(e.target.value)}
       ></input>
+      <p>email: </p>
       <input 
        type="email"
         placeholder="email"
         value={email}
         onChange={(e) => setemail(e.target.value)}
       ></input>
+      <p>password </p>
       <input 
       type='password'
         placeholder="password"

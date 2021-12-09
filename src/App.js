@@ -8,6 +8,7 @@ import io from "socket.io-client";
 import { connect } from "react-redux";
 import Login from "./login/login";
 import SignUp from "./signup/signup";
+import Profile from "./profile/profile.js"
 
 const socket = io.connect('/');
 
@@ -43,6 +44,9 @@ const  App = (props ) => {
           <Route path={"/chat"} exact render = {
             () => props.user.name === null ? (<Redirect to="/"/>) : (<Appmain/> )  
           } />
+          <Route path={"/profile"} exact render = {
+            () => props.token === null ? (<Redirect to="/"/>) : (<Profile socket = {socket}/> )
+          } />
         </Switch>
       </div>
     </Router>
@@ -51,7 +55,8 @@ const  App = (props ) => {
 
 const mapStateToProps = (state) => {
   return{
-    user : state.user.user
+    user : state.user.user,
+    token: state.user.token
   }
 }
 
