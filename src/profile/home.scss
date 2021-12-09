@@ -20,8 +20,9 @@
   }
   button {
     font-size: 1rem;
-    padding: 0.5rem 1rem 0.5rem 1rem;
+    padding: 1rem;
     width: 100px;
+    height: 80px;
     border: none;
     background-color: #ffac41;
     border-radius: 5px;
@@ -38,7 +39,7 @@
 
   .list-ava{
     width: 100px;
-    
+    height:min-content;
   }
   p{
     text-align: center;

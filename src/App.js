@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import Login from "./login/login";
 import SignUp from "./signup/signup";
 import Profile from "./profile/profile.js"
+import UploadAvatar from "./profile/uploadavatar";
 
 const socket = io.connect('/');
 
@@ -46,6 +47,9 @@ const  App = (props ) => {
           } />
           <Route path={"/profile"} exact render = {
             () => props.token === null ? (<Redirect to="/"/>) : (<Profile socket = {socket}/> )
+          } />
+          <Route path={"/editavatar"} exact render = {
+            () => props.token === null ? (<Redirect to="/"/>) : (<UploadAvatar/> )
           } />
         </Switch>
       </div>
