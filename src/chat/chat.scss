@@ -59,7 +59,7 @@
 
       p {
         font-size: 1rem;
-        background-color: $redColor;
+        background-color: rgb(105, 83, 105);
         padding: 1rem;
         border-radius: 0px 10px 10px 10px;
         font-weight: 300;
@@ -83,7 +83,7 @@
       p {
         text-align: end;
         border-radius: 10px 0px 10px 10px;
-        background-color: green;
+        background-color: gray;
         color: white;
       }
       span {
@@ -120,4 +120,9 @@
       }
     }
   }
+}
+
+.tiny-ava{
+  height: 40px;
+  width: 40px;
 }

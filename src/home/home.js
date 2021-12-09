@@ -12,9 +12,10 @@ const Homepage = (props)=> {
   
   const sendData = () => {
     if (username !== "" ) {
-      socket.emit("joinRoom", { username, roomname });
+      const avaurl = `https://robohash.org/${username}`
+      socket.emit("joinRoom", { username, roomname, avaurl });
       props.updateCurrentRoom(roomname)
-      const user = {name: username}
+      const user = {name: username, avaurl: `https://robohash.org/${username}`}
       props.updateUser(user)    
     } else {
       alert("username are must !");

@@ -24,9 +24,9 @@ const SignUpPage = (props)=> {
           
           return
       }
+      const avaurl = res.data.user.avaurl
 
-
-      socket.emit("joinRoom", { username, roomname });
+      socket.emit("joinRoom", { username, roomname, avaurl });
       props.updateCurrentRoom(roomname)      
       props.updateUser(res.data.user)
       props.updateToken(res.data.token)

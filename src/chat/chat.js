@@ -11,7 +11,7 @@ const Chat = (props)=> {
   const username = props.user.name
   const roomname = props.currentRoom
   const socket = props.socket
-  useEffect(()=> {
+  useEffect(() => {
     socket.on("roomusers", (data)=>{
       props.updateRoomUser(data)
     })
@@ -27,6 +27,7 @@ const Chat = (props)=> {
       temp.push({
         userId: data.userId,
         username: data.username,
+        avaurl : data.avaurl,
         text: ans,
       });
       setMessages([...temp]);
@@ -62,14 +63,14 @@ const Chat = (props)=> {
           if (i.username === username) {
             return (
               <div className="message mess-right">
-                <p>{i.text}</p>
-                <span>{i.username}</span>
+                <p>{i.text} <img src={i.avaurl} alt="small ava" className="tiny-ava"/></p>
+                <span>{i.username} </span>
               </div>
             );
           } else {
             return (
               <div className="message">
-                <p>{i.text} </p>
+                <p><img src={i.avaurl} alt="small ava" className="tiny-ava"/> {i.text}</p>
                 <span>{i.username}</span>
               </div>
             );

@@ -24,8 +24,8 @@ const LoginPage = (props)=> {
       }
 
       const username = res.data.user.name
-
-      socket.emit("joinRoom", { username, roomname });
+      const avaurl = res.data.user.avaurl
+      socket.emit("joinRoom", { username, roomname, avaurl });
       props.updateCurrentRoom(roomname)      
       props.updateUser(res.data.user)
       props.updateToken(res.data.token)

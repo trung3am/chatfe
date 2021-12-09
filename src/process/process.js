@@ -4,7 +4,7 @@ const  Process = (props)=> {
   var a = <div>No users</div>
   if (props.roomUsers.length !== 0) {
     a = props.roomUsers.map(item =>
-      <div>{item},</div>
+      <div><img src={item.avaurl} className="small-ava" alt={item.username}></img>{item.username}</div>
     )
   }
 
