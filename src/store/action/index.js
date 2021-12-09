@@ -42,3 +42,9 @@ export const logOut = () => {
     type: "LOGOUT"
   }
 }
+
+export const setConnected = () => {
+  return {
+    type: "CONNECTED"
+  }
+}

@@ -7,7 +7,8 @@ const initialState = {
   },
   roomUsers:[],
   currentRoom: "Lobby",
-  roomList: null
+  roomList: null,
+  isConnected: false
 }
 
 export const ProcessReducer = (state = initialState, action) => {
@@ -31,6 +32,11 @@ export const ProcessReducer = (state = initialState, action) => {
         roomUsers: action.users
       }
 
+    case "CONNECTED":
+      return{
+        ...state,
+        isConnected: true
+      }
     default:
       return state;
 

@@ -1,8 +1,10 @@
 import "./chat.scss";
 import { to_Decrypt, to_Encrypt } from "../aes.js";
-import { process, updateRoomUser } from "../store/action/index";
+import { process, setConnected, updateRoomUser } from "../store/action/index";
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
+import SendMessageApi from "../api/sendmessageApi";
+import GetMessageApi from "../api/getmessageApi";
 
 
 
@@ -13,9 +15,22 @@ const Chat = (props)=> {
   const roomname = props.currentRoom
   const avaurl = props.user.avaurl
   const socket = props.socket
-  const joinChat =  () => {
-
-      socket.emit("joinRoom", {username ,roomname, avaurl})
+  const joinChat =  async () => {
+      if (!props.isConnected) {
+        let oldmessages = []
+        oldmessages = await GetMessageApi(roomname)
+        console.log(!oldmessages)
+        if (oldmessages) {
+        let temp = messages
+        oldmessages.forEach(e => {
+          e.text = to_Decrypt(e.text, e.username)
+          temp.push(e)
+        });
+        setMessages([...temp])
+        }
+        socket.emit("joinRoom", {username ,roomname, avaurl})
+        props.setConnected()
+      }
 
   }
   useEffect(() => {
@@ -29,10 +44,9 @@ const Chat = (props)=> {
       //decypt
       const ans = to_Decrypt(data.text, data.username);
       props.process(false, ans, data.text);
-      console.log(ans);
       let temp = messages;
       temp.push({
-        userId: data.userId,
+        
         username: data.username,
         avaurl : data.avaurl,
         text: ans,
@@ -44,7 +58,8 @@ const Chat = (props)=> {
   const sendData = () => {
     if (text !== "") {
       const ans = to_Encrypt(text);
-      socket.emit("chat", ans); 
+      socket.emit("chat", ans);
+      SendMessageApi(username,ans,roomname, avaurl)
       setText("");
     }
   };
@@ -106,14 +121,16 @@ const Chat = (props)=> {
 const mapDispatchToProps = (dispatch) =>{
   return{
     process : (encrypt, text, cypher) => dispatch(process(encrypt,text, cypher)),
-    updateRoomUser : (roomUsers) => dispatch(updateRoomUser(roomUsers))
+    updateRoomUser : (roomUsers) => dispatch(updateRoomUser(roomUsers)),
+    setConnected : () => dispatch(setConnected())
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     user : state.user.user,
-    currentRoom : state.process.currentRoom
+    currentRoom : state.process.currentRoom,
+    isConnected : state.process.isConnected
   }
 }
 
