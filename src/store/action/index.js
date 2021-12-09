@@ -29,3 +29,10 @@ export const updateRoomUser = (users) => {
     users
   }
 }
+
+export const updateToken =  (token) => {
+  return{
+    type: 'UPDATE_TOKEN',
+    token
+  }
+}

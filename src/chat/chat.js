@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 const Chat = (props)=> {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
-  const username = props.user
+  const username = props.user.name
   const roomname = props.currentRoom
   const socket = props.socket
   useEffect(()=> {

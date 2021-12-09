@@ -13,8 +13,9 @@ const Homepage = (props)=> {
   const sendData = () => {
     if (username !== "" ) {
       socket.emit("joinRoom", { username, roomname });
-      props.updateCurrentRoom(roomname)      
-      props.updateUser(username)    
+      props.updateCurrentRoom(roomname)
+      const user = {name: username}
+      props.updateUser(user)    
     } else {
       alert("username are must !");
       window.location.reload();
@@ -29,8 +30,9 @@ const Homepage = (props)=> {
         value={username}
         onChange={(e) => setusername(e.target.value)}
       ></input>
-      
+            
       <button onClick={sendData}>Join</button>
+      <Link to='/login'>Try login and sign up</Link>
     </div>
   );
 }

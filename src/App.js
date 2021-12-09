@@ -6,6 +6,7 @@ import "./App.scss";
 import React from "react";
 import io from "socket.io-client";
 import { connect } from "react-redux";
+import Login from "./login/login";
 
 const socket = io.connect('/');
 
@@ -29,11 +30,14 @@ const  App = (props ) => {
       <div className="App">
         <Switch>
           <Route path="/" exact render = {
-            () => props.user !== null ? (<Redirect to='/chat'/>) : (<Home socket={socket} />)
+            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<Home socket={socket} />)
+          }/>
+          <Route path="/login"  render = {
+            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<Login socket={socket} />)
           }/>
             
           <Route path={"/chat"} exact render = {
-            () => props.user === null ? (<Redirect to="/"/>) : (<Appmain/> )  
+            () => props.user.name === null ? (<Redirect to="/"/>) : (<Appmain/> )  
           } />
         </Switch>
       </div>
