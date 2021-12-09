@@ -11,8 +11,6 @@ import DeleteAllPictureApi from "../api/deleteallpictureApi";
 const ProfilePage = (props)=> {
   const [file, setfile] = useState(null)
   const username = props.user.name
-  const roomname = "Lobby"
-  const socket = props.socket
   
 
 
@@ -55,19 +53,6 @@ const ProfilePage = (props)=> {
     return
   }
   
-  const sendData = () => {
-    if (username !== "" ) {
-      const avaurl = `https://robohash.org/${username}`
-      socket.emit("joinRoom", { username, roomname, avaurl });
-      props.updateCurrentRoom(roomname)
-      const user = {name: username, avaurl: `https://robohash.org/${username}`}
-      props.updateUser(user.data)    
-    } else {
-      alert("username are must !");
-      window.location.reload();
-    }
-  };
-
   var pictures = <p>No picture uploaded</p>
 
   if (props.user.pictures.length > 0) {
@@ -84,7 +69,7 @@ const ProfilePage = (props)=> {
         <div class="row">
           <div class= "col s8 text-center">
           <Link to='/editavatar'><button>Change avatar</button></Link>
-      <button onClick={sendData}>Join Chat</button>
+      <Link to='/chat'><button>Join Chat</button></Link>
       <button onClick={deleteAllPicture}>delete all uploaded photo</button>
         <button onClick={handleLogout}>Log out</button>
           </div>

@@ -18,7 +18,7 @@ function Appmain(props) {
     <React.Fragment>
       <div className="right">
         <Chat
-          socket={socket}
+          socket = {socket}        
         />
       </div>
       <div className="left">
@@ -33,20 +33,20 @@ const  App = (props ) => {
       <div className="App">
         <Switch>
           <Route path="/" exact render = {
-            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<Home socket={socket} />)
+            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<Home />)
           }/>
           <Route path="/login"  render = {
-            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<Login socket={socket} />)
+            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<Login />)
           }/>
           <Route path="/signup"  render = {
-            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<SignUp socket={socket} />)
+            () => props.user.name !== null ? (<Redirect to='/chat'/>) : (<SignUp />)
           }/>
             
           <Route path={"/chat"} exact render = {
             () => props.user.name === null ? (<Redirect to="/"/>) : (<Appmain/> )  
           } />
           <Route path={"/profile"} exact render = {
-            () => props.token === null ? (<Redirect to="/"/>) : (<Profile socket = {socket}/> )
+            () => props.token === null ? (<Redirect to="/"/>) : (<Profile /> )
           } />
           <Route path={"/editavatar"} exact render = {
             () => props.token === null ? (<Redirect to="/"/>) : (<UploadAvatar/> )

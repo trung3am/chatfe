@@ -7,13 +7,11 @@ import { updateCurrentRoom, updateUser } from "../store/action";
 const Homepage = (props)=> {
   const [username, setusername] = useState("");
   const roomname = "Lobby"
-  const socket = props.socket
   
   
   const sendData = () => {
     if (username !== "" ) {
-      const avaurl = `https://robohash.org/${username}`
-      socket.emit("joinRoom", { username, roomname, avaurl });
+      
       props.updateCurrentRoom(roomname)
       const user = {name: username, avaurl: `https://robohash.org/${username}`}
       props.updateUser(user)    

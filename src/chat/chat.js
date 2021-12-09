@@ -5,12 +5,19 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 
+
 const Chat = (props)=> {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const username = props.user.name
   const roomname = props.currentRoom
+  const avaurl = props.user.avaurl
   const socket = props.socket
+  const joinChat =  () => {
+
+      socket.emit("joinRoom", {username ,roomname, avaurl})
+
+  }
   useEffect(() => {
     socket.on("roomusers", (data)=>{
       props.updateRoomUser(data)
@@ -49,10 +56,11 @@ const Chat = (props)=> {
 
   useEffect(scrollToBottom, [messages]);
 
-  console.log(messages, "mess");
+
 
   return (
     <div className="chat">
+      <button onClick={joinChat} className="start-chat">Click here to connect to server</button>
       <div className="user-name">
         <h2>
           {username} <span style={{ fontSize: "0.7rem" }}>in {roomname}</span>

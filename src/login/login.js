@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 const LoginPage = (props)=> {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const roomname = "Lobby"
-  const socket = props.socket
   
   
   const sendData = async () => {
@@ -22,11 +20,6 @@ const LoginPage = (props)=> {
           
           return
       }
-
-      const username = res.data.user.name
-      const avaurl = res.data.user.avaurl
-      socket.emit("joinRoom", { username, roomname, avaurl });
-      props.updateCurrentRoom(roomname)      
       props.updateUser(res.data.user)
       props.updateToken(res.data.token)
     } else {

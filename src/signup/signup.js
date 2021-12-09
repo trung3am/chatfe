@@ -11,8 +11,7 @@ const SignUpPage = (props)=> {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [username, setusername] = useState("");
-  const roomname = "Lobby"
-  const socket = props.socket
+
   
   
   const sendData = async () => {
@@ -24,10 +23,7 @@ const SignUpPage = (props)=> {
           
           return
       }
-      const avaurl = res.data.user.avaurl
 
-      socket.emit("joinRoom", { username, roomname, avaurl });
-      props.updateCurrentRoom(roomname)      
       props.updateUser(res.data.user)
       props.updateToken(res.data.token)
     } else {

@@ -1,4 +1,6 @@
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logOut } from "../store/action";
 import "./process.scss";
 const  Process = (props)=> {
   var a = <div>No users</div>
@@ -11,7 +13,16 @@ const  Process = (props)=> {
 
   return (
     <div className="process">
-      
+      <p4>I'm using redux-persist on this site so if testing with 2 users please use inconigto</p4>
+      <br></br>
+      {props.token!==null ? <Link to='/profile'><button>User Profile</button></Link> : 
+      <div>
+        <p4>please login to try user profile feature</p4>
+        <br></br>
+        <button onClick={props.logOut}>Back to front page</button>
+      </div>}
+
+      <br></br>
       <div className="incoming">
         <h4>Incoming Data</h4>
         <p>{props.messages.cypher}</p>
@@ -28,10 +39,17 @@ const  Process = (props)=> {
   );
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut : () => dispatch(logOut())
+  }
+}
+
 const mapStateToProps= (state) =>{
   return {
     messages: state.process.messages,
-    roomUsers: state.process.roomUsers
+    roomUsers: state.process.roomUsers,
+    token: state.user.token
   }
 }
-export default connect(mapStateToProps)(Process);
+export default connect(mapStateToProps, mapDispatchToProps)(Process);
