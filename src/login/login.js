@@ -35,7 +35,7 @@ const LoginPage = (props)=> {
 
   return (
     <div className="homepage">
-      <h1>Welcome to ChatApp</h1>
+      <h1>Welcome to Nydus Network</h1>
       <p>email:</p>
       <input type="email" 
         placeholder="email"

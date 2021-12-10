@@ -39,7 +39,7 @@ const SignUpPage = (props)=> {
 
   return (
     <div className="homepage">
-      <h1>Welcome to ChatApp</h1>
+      <h1>Welcome to Nydus Network</h1>
       <p>username: </p>
       <input 
         placeholder="Input your user name"
