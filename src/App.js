@@ -13,7 +13,7 @@ import UploadAvatar from "./profile/uploadavatar";
 import Footer from "./footer";
 
 
-const socket = io.connect('/');
+const socket = io.connect("https://trung-realtime-be.herokuapp.com");
 
 function Appmain(props) {
   return (
