@@ -1,3 +1,4 @@
+import { serverUrl } from './link';
 const axios = require('axios');
 
 const LogOutApi = async (token) => {
@@ -5,7 +6,7 @@ const LogOutApi = async (token) => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3005/users/logout',
+        url: serverUrl + "/users/logout",
         headers: { 
           Authorization: "Bearer " + token
         },

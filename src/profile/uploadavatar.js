@@ -26,6 +26,7 @@ const UpLoadAvatar = (props)=> {
       const userProfile = await GetUserProfileApi(props.token)
       alert("upload complete")
       props.updateUser(userProfile.data)
+      window.reload()
       return 
     }
     alert("failed to upload new avatar")

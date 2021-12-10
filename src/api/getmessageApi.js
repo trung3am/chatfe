@@ -1,3 +1,4 @@
+import { serverUrl } from './link';
 const axios = require('axios');
 
 const GetMessageApi = async (roomname) => {
@@ -8,7 +9,7 @@ const GetMessageApi = async (roomname) => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3005/messages',
+        url: serverUrl + "/messages",
         headers: { 
             'Content-Type': 'application/json'
           },

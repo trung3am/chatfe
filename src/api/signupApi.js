@@ -1,3 +1,4 @@
+import { serverUrl } from './link';
 const axios = require('axios');
 
 const SignUpApi = async (name, email, password) => {
@@ -10,7 +11,7 @@ const SignUpApi = async (name, email, password) => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3005/users',
+        url: serverUrl + "/users",
         headers: { 
           'Content-Type': 'application/json'
         },

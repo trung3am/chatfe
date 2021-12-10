@@ -1,4 +1,6 @@
+import { serverUrl } from './link';
 const axios = require('axios');
+
 
 const SendMessageApi = async (username,ans, roomname, avaurl) => {
     var data = JSON.stringify({
@@ -12,7 +14,7 @@ const SendMessageApi = async (username,ans, roomname, avaurl) => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3005/messages/send',
+        url: serverUrl + "/messages/send",
         headers: { 
             'Content-Type': 'application/json'
           },

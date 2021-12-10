@@ -1,3 +1,4 @@
+import { serverUrl } from './link';
 const axios = require('axios');
 
 const GetUserProfileApi = async (token) => {
@@ -6,7 +7,7 @@ const GetUserProfileApi = async (token) => {
       
       var config = {
         method: 'get',
-        url: 'http://localhost:3005/users/me',
+        url: serverUrl + "/users/me",
         headers: { 
             Authorization: "Bearer " + token
           },

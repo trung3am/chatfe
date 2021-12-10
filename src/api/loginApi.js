@@ -1,3 +1,4 @@
+import { serverUrl } from './link';
 const axios = require('axios');
 
 const LoginApi = async (email, password) => {
@@ -10,7 +11,7 @@ const LoginApi = async (email, password) => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3005/users/login',
+        url: serverUrl + "/users/login",
         headers: { 
           'Content-Type': 'application/json'
         },

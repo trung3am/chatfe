@@ -1,3 +1,4 @@
+import { serverUrl } from './link';
 const axios = require('axios');
 
 const UploadAvatarApi = async (file,token) => {
@@ -9,7 +10,7 @@ const UploadAvatarApi = async (file,token) => {
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3005/users/me/avatar',
+        url: serverUrl + "/users/me/avatar",
         headers: { 
           Authorization: "Bearer " + token
         },

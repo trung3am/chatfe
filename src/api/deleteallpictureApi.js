@@ -1,3 +1,4 @@
+import { serverUrl } from './link';
 const axios = require('axios');
 
 const DeleteAllPictureApi = async (token) => {
@@ -5,7 +6,7 @@ const DeleteAllPictureApi = async (token) => {
       
       var config = {
         method: 'delete',
-        url: 'http://localhost:3005/users/picture/delete/all',
+        url: serverUrl + "/users/picture/delete/all",
         headers: { 
           Authorization: "Bearer " + token
         },
