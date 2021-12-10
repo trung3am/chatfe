@@ -1,6 +1,6 @@
 import "./chat.scss";
 import { to_Decrypt, to_Encrypt } from "../aes.js";
-import { process, setConnected, updateRoomUser } from "../store/action/index";
+import { process, setConnected, unsetFromChat, updateRoomUser } from "../store/action/index";
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import SendMessageApi from "../api/sendmessageApi";
@@ -15,19 +15,25 @@ const Chat = (props)=> {
   const roomname = props.currentRoom
   const avaurl = props.user.avaurl
   const socket = props.socket
+
+  const updateMessage = async () => {
+    let oldmessages = []
+    oldmessages = await GetMessageApi(roomname)
+    if (oldmessages) {
+    let temp = messages
+    oldmessages.forEach(e => {
+      e.text = to_Decrypt(e.text, e.username)
+      temp.unshift(e)
+    });
+    setMessages([...temp])
+    }
+    props.unsetFromChat()
+  }
+
+
   const joinChat =  async () => {
       if (!props.isConnected) {
-        let oldmessages = []
-        oldmessages = await GetMessageApi(roomname)
-        console.log(!oldmessages)
-        if (oldmessages) {
-        let temp = messages
-        oldmessages.forEach(e => {
-          e.text = to_Decrypt(e.text, e.username)
-          temp.push(e)
-        });
-        setMessages([...temp])
-        }
+        await updateMessage()
         socket.emit("joinRoom", {username ,roomname, avaurl})
         props.setConnected()
       }
@@ -71,7 +77,16 @@ const Chat = (props)=> {
 
   useEffect(scrollToBottom, [messages]);
 
+  if (props.fromChat!== false) {
+    updateMessage()
+    props.unsetFromChat()
+  }
 
+  if (props.isConnected !== true){
+    updateMessage()
+    socket.emit("joinRoom", {username ,roomname, avaurl})
+    props.setConnected()
+  }
 
   return (
     <div className="chat">
@@ -122,7 +137,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     process : (encrypt, text, cypher) => dispatch(process(encrypt,text, cypher)),
     updateRoomUser : (roomUsers) => dispatch(updateRoomUser(roomUsers)),
-    setConnected : () => dispatch(setConnected())
+    setConnected : () => dispatch(setConnected()),
+    unsetFromChat : () => dispatch(unsetFromChat())
   }
 }
 
@@ -130,7 +146,8 @@ const mapStateToProps = (state) => {
   return {
     user : state.user.user,
     currentRoom : state.process.currentRoom,
-    isConnected : state.process.isConnected
+    isConnected : state.process.isConnected,
+    fromChat : state.process.fromChat
   }
 }
 

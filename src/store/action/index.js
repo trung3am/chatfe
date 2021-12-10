@@ -48,3 +48,21 @@ export const setConnected = () => {
     type: "CONNECTED"
   }
 }
+
+export const setFromChat = () => {
+  return {
+    type: "SET_FROM_CHAT"
+  }
+}
+
+export const unsetFromChat = () => {
+  return {
+    type: "UNSET_FROM_CHAT"
+  }
+}
+
+export const setReload = () => {
+  return {
+    type: "SET_RELOAD"
+  }
+}

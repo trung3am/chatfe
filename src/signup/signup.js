@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./home.scss";
 
 import { connect } from "react-redux";
-import { updateCurrentRoom, updateToken, updateUser } from "../store/action";
+import { setReload, updateCurrentRoom, updateToken, updateUser } from "../store/action";
 import SignUpApi from "../api/signupApi";
 import { Link } from "react-router-dom";
 
@@ -31,6 +31,11 @@ const SignUpPage = (props)=> {
       window.location.reload();
     }
   };
+
+  if (props.isReloaded !== false) {
+    props.setReload()
+    window.location.reload()
+  }
 
   return (
     <div className="homepage">
@@ -63,12 +68,19 @@ const SignUpPage = (props)=> {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isReloaded: state.user.isReloaded
+  }
+}
+
 const mapDispatchToProps = (dispatch) =>{
   return{
     updateUser : (user) => dispatch(updateUser(user)),
     updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname)),
-    updateToken : (token) => dispatch(updateToken(token))
+    updateToken : (token) => dispatch(updateToken(token)),
+    setReload : () => dispatch(setReload())
   }
 }
 
-export default connect(null,mapDispatchToProps)(SignUpPage);
+export default connect(mapStateToProps,mapDispatchToProps)(SignUpPage);

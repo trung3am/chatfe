@@ -10,6 +10,8 @@ import Login from "./login/login";
 import SignUp from "./signup/signup";
 import Profile from "./profile/profile.js"
 import UploadAvatar from "./profile/uploadavatar";
+import Footer from "./footer";
+
 
 const socket = io.connect('/');
 
@@ -53,6 +55,9 @@ const  App = (props ) => {
           } />
         </Switch>
       </div>
+      <footer>
+          <Footer/>
+        </footer>
     </Router>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./home.scss";
 
 import { connect } from "react-redux";
-import { updateCurrentRoom, updateToken, updateUser } from "../store/action";
+import { setReload, updateCurrentRoom, updateToken, updateUser } from "../store/action";
 import LoginApi from "../api/loginApi";
 import { Link } from "react-router-dom";
 
@@ -27,6 +27,11 @@ const LoginPage = (props)=> {
       window.location.reload();
     }
   };
+
+  if (props.isReloaded !== false) {
+    props.setReload()
+    window.location.reload()
+  }
 
   return (
     <div className="homepage">
@@ -56,8 +61,15 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     updateUser : (user) => dispatch(updateUser(user)),
     updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname)),
-    updateToken : (token) => dispatch(updateToken(token))
+    updateToken : (token) => dispatch(updateToken(token)),
+    setReload : () => dispatch(setReload())
   }
 }
 
-export default connect(null,mapDispatchToProps)(LoginPage);
+const mapStateToProps = (state) => {
+  return {
+    isReloaded: state.user.isReloaded
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginPage);

@@ -13,9 +13,11 @@ const  Process = (props)=> {
 
   return (
     <div className="process">
-      <p4>I'm using redux-persist on this site so if testing with 2 users please use inconigto</p4>
+      <p4>I'm using redux-persist on this site so if testing with 2 users please use inconigto mode</p4>
       <br></br>
-      {props.token!==null ? <Link to='/profile'><button>User Profile</button></Link> : 
+      {props.token!==null ? <div><Link to='/profile'><button>User Profile</button>
+      </Link><p1>Logout</p1><br></br>
+      <button onClick={props.logOut}>Log out here</button></div> : 
       <div>
         <p4>please login to try user profile feature</p4>
         <br></br>

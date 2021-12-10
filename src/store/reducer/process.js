@@ -8,7 +8,8 @@ const initialState = {
   roomUsers:[],
   currentRoom: "Lobby",
   roomList: null,
-  isConnected: false
+  isConnected: false,
+  fromChat: false
 }
 
 export const ProcessReducer = (state = initialState, action) => {
@@ -37,6 +38,31 @@ export const ProcessReducer = (state = initialState, action) => {
         ...state,
         isConnected: true
       }
+
+    case "SET_FROM_CHAT":
+      return{
+        ...state,
+        fromChat: true
+      }
+      case "UNSET_FROM_CHAT":
+        return{
+          ...state,
+          fromChat: false
+        }
+      case "LOGOUT":
+        return{
+          messages: {
+            text: 'init',
+            encrypt: false,
+            cypher: 'init'
+          },
+          roomUsers:[],
+          currentRoom: "Lobby",
+          roomList: null,
+          isConnected: false,
+          fromChat: false
+        }
+    
     default:
       return state;
 

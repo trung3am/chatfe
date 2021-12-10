@@ -1,7 +1,7 @@
 import "./home.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { logOut, updateCurrentRoom, updateUser } from "../store/action";
+import { logOut, setFromChat, updateCurrentRoom, updateUser } from "../store/action";
 import LogOutApi from "../api/logoutApi";
 import { useState } from "react";
 import UpLoadPictureApi from "../api/uploadpictureApi";
@@ -60,6 +60,9 @@ const ProfilePage = (props)=> {
        <img src={"http://localhost:3005/"+item._id} alt={item.name} className="list-ava"/>
       )
   }
+  const setChat = () => {
+    props.setFromChat()
+  }
 
   return (
     <div className="homepage">
@@ -69,7 +72,7 @@ const ProfilePage = (props)=> {
         <div class="row">
           <div class= "col s8 text-center">
           <Link to='/editavatar'><button>Change avatar</button></Link>
-      <Link to='/chat'><button>Join Chat</button></Link>
+      <Link to='/chat'><button onClick={setChat}>Join Chat</button></Link>
       <button onClick={deleteAllPicture}>delete all uploaded photo</button>
         <button onClick={handleLogout}>Log out</button>
           </div>
@@ -99,7 +102,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     updateUser : (user) => dispatch(updateUser(user)),
     updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname)),
-    logOut : () => dispatch(logOut())
+    logOut : () => dispatch(logOut()),
+    setFromChat : () => dispatch(setFromChat())
   }
 }
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./home.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateCurrentRoom, updateUser } from "../store/action";
+import { setReload, updateCurrentRoom, updateUser } from "../store/action";
 
 const Homepage = (props)=> {
   const [username, setusername] = useState("");
@@ -21,6 +21,11 @@ const Homepage = (props)=> {
     }
   };
 
+  if (props.isReloaded !== false) {
+    props.setReload()
+    window.location.reload()
+  }
+
   return (
     <div className="homepage">
       <h1>Welcome to ChatApp</h1>
@@ -37,11 +42,18 @@ const Homepage = (props)=> {
   );
 }
 
-const mapDispatchToProps = (dispatch) =>{
-  return{
-    updateUser : (user) => dispatch(updateUser(user)),
-    updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname))
+const mapStateToProps = (state) => {
+  return {
+    isReloaded: state.user.isReloaded
   }
 }
 
-export default connect(null,mapDispatchToProps)(Homepage);
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    updateUser : (user) => dispatch(updateUser(user)),
+    updateCurrentRoom : (roomname) => dispatch(updateCurrentRoom(roomname)),
+    setReload : () => dispatch(setReload())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Homepage);
