@@ -57,7 +57,7 @@ const ProfilePage = (props)=> {
 
   if (props.user.pictures.length > 0) {
       pictures = props.user.pictures.map((item) => 
-       <img src={"http://localhost:3005/"+item._id} alt={item.name} className="list-ava"/>
+       <img src={"https://trung-mongodb-be.herokuapp.com/"+item._id} alt={item.name} className="list-ava"/>
       )
   }
   const setChat = () => {
